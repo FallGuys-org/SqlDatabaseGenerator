@@ -23,6 +23,10 @@ namespace FGO.Database
             modelBuilder.Entity<CustomisationItem>()
                 .OwnsMany(c => c.Prices);
 
+            modelBuilder.Entity<CustomisationItem>()
+                .HasMany(c => c.Sources)
+                .WithMany(c => c.Items);
+
             // Tags are serialized as a semicolon delimited string
             var splitStringConverter = new ValueConverter<HashSet<string>, string>(v => string.Join(";", v), v => new HashSet<string>(v.Split(new[] { ';' })));
             modelBuilder.Entity<CustomisationItem>()
