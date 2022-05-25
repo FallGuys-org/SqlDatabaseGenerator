@@ -31,13 +31,21 @@ static async Task GenerateAsync(Uri dbUri, OutputType outputType, Uri outputPath
 
     HttpClient httpClient = new();
 
-    JsonSerializerOptions jsonOptions = new()
+    JsonSerializerOptions coreJsonOptions = new()
     {
         ReadCommentHandling = JsonCommentHandling.Skip,
         AllowTrailingCommas = true
     };
 
-    async Task LoadAsync<TEntity>(DbSet<TEntity> dbSet, Func<TEntity, string?> getName) where TEntity : class
+    JsonSerializerOptions nonCoreJsonOptions = new(coreJsonOptions);
+
+    async Task LoadCoreAsync<TEntity>(DbSet<TEntity> dbSet, Func<TEntity, string?> getName) where TEntity : class
+    {
+        nonCoreJsonOptions.Converters.Add(new JsonDbEntityConverter<TEntity>(dbSet));
+        await LoadAsync(dbSet, getName, coreJsonOptions);
+    }
+
+    async Task LoadAsync<TEntity>(DbSet<TEntity> dbSet, Func<TEntity, string?> getName, JsonSerializerOptions? jsonOptions = null) where TEntity : class
     {
         string path = Path.Combine(dbUri.OriginalString, $"{typeof(TEntity).Name}.json");
 
@@ -48,7 +56,7 @@ static async Task GenerateAsync(Uri dbUri, OutputType outputType, Uri outputPath
             _ => throw new ArgumentException("Unsupported scheme")
         };
 
-        var records = JsonSerializer.DeserializeAsyncEnumerable<TEntity>(stream, jsonOptions);
+        var records = JsonSerializer.DeserializeAsyncEnumerable<TEntity>(stream, jsonOptions ?? nonCoreJsonOptions);
         await foreach (TEntity? record in records)
         {
             if (record is not null)
@@ -63,11 +71,15 @@ static async Task GenerateAsync(Uri dbUri, OutputType outputType, Uri outputPath
     {
         while (!db.Database.EnsureCreated() && db.Database.EnsureDeleted()) ; // Always output a fresh db
 
-        await LoadAsync(db.Rarities, rarity => rarity.Id);
-        await LoadAsync(db.Currencies, currency => currency.Id);
-        await LoadAsync(db.Seasons, season => $"{season.Id} - {season.Name?.English}");
-        await LoadAsync(db.CustomisationItemTypes, itemType => itemType.Id);
-        await LoadAsync(db.CustomisationItemSources, itemSource => itemSource.Id);
+        // Core Data (needs to be added first)
+        await LoadCoreAsync(db.Rarities, rarity => rarity.Id);
+        await LoadCoreAsync(db.Currencies, currency => currency.Id);
+        await LoadCoreAsync(db.Seasons, season => $"{season.Id} - {season.Name?.English}");
+        await LoadCoreAsync(db.CustomisationItemTypes, itemType => itemType.Id);
+        await LoadCoreAsync(db.CustomisationItemSources, itemSource => itemSource.Id);
+
+        // Non-Core Data
+        await LoadAsync(db.CustomisationItems, item => $"{item.Id} - {item.Name?.English} ({item.ItemType?.Id})");
 
         db.SaveChanges();
 

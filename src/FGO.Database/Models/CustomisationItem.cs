@@ -10,10 +10,10 @@
 
         public CustomisationItemType? ItemType { get; set; }
 
-        public ItemPrice[] Prices { get; set; } = Array.Empty<ItemPrice>();
+        public List<ItemPrice> Prices { get; set; } = new();
 
-        public CustomisationItemSource[] Sources { get; set; } = Array.Empty<CustomisationItemSource>();
+        public List<CustomisationItemSource> Sources { get; set; } = new();
 
-        public Tag[] Tags { get; set; } = Array.Empty<Tag>();
+        public HashSet<string> Tags { get; set; } = new();
     }
 }

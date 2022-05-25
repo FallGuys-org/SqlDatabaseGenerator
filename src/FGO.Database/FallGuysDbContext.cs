@@ -1,5 +1,6 @@
 ﻿using FGO.Database.Models;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace FGO.Database
 {
@@ -21,6 +22,12 @@ namespace FGO.Database
         {
             modelBuilder.Entity<CustomisationItem>()
                 .OwnsMany(c => c.Prices);
+
+            // Tags are serialized as a semicolon delimited string
+            var splitStringConverter = new ValueConverter<HashSet<string>, string>(v => string.Join(";", v), v => new HashSet<string>(v.Split(new[] { ';' })));
+            modelBuilder.Entity<CustomisationItem>()
+                .Property(c => c.Tags)
+                .HasConversion(splitStringConverter);
         }
     }
 }
