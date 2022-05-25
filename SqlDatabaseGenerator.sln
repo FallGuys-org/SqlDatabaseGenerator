@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.31903.59
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FGO.Database", "src\FGO.Database\FGO.Database.csproj", "{F008E427-4819-48C7-A156-9430697578EA}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FGO.Database.Generator", "src\FGO.Database.Generator\FGO.Database.Generator.csproj", "{118A5E7C-190D-4D78-B697-D7D53E132309}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{F008E427-4819-48C7-A156-9430697578EA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F008E427-4819-48C7-A156-9430697578EA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F008E427-4819-48C7-A156-9430697578EA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F008E427-4819-48C7-A156-9430697578EA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{118A5E7C-190D-4D78-B697-D7D53E132309}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{118A5E7C-190D-4D78-B697-D7D53E132309}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{118A5E7C-190D-4D78-B697-D7D53E132309}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{118A5E7C-190D-4D78-B697-D7D53E132309}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {EA406CCF-E786-4E0B-8928-A74C47068CC1}
+	EndGlobalSection
+EndGlobal
