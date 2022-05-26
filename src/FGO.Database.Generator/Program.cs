@@ -77,9 +77,11 @@ static async Task GenerateAsync(Uri dbUri, OutputType outputType, Uri outputPath
         await LoadCoreAsync(db.Seasons, season => $"{season.Id} - {season.Name?.English}");
         await LoadCoreAsync(db.CustomisationItemTypes, itemType => itemType.Id);
         await LoadCoreAsync(db.CustomisationItemSources, itemSource => itemSource.Id);
+        await LoadCoreAsync(db.RoundTypes, roundType => roundType.Id);
 
         // Non-Core Data
         await LoadAsync(db.CustomisationItems, item => $"{item.Id} - {item.Name?.English} ({item.ItemType?.Id})");
+        await LoadAsync(db.Rounds, round => round.Id);
 
         db.SaveChanges();
 

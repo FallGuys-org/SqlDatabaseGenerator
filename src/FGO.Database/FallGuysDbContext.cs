@@ -18,6 +18,10 @@ namespace FGO.Database
 
         public DbSet<Season> Seasons { get; set; } = null!;
 
+        public DbSet<Round> Rounds { get; set; } = null!;
+
+        public DbSet<RoundType> RoundTypes { get; set; } = null!;
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<CustomisationItem>()
