@@ -1,4 +1,6 @@
 # Fall Guys SQL Database Generator
+![Build status](https://github.com/FallGuys-org/SqlDatabaseGenerator/actions/workflows/dotnet.yml/badge.svg)
+
 This tool generates a SQL database from [the Fall Guys database](https://github.com/FallGuys-org/TheDatabase).
 
 For now, it can output a SQLite database only.
