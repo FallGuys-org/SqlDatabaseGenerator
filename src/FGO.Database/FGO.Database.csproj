@@ -11,6 +11,7 @@
     <PackageRequireLicenseAcceptance>True</PackageRequireLicenseAcceptance>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <Version>$(VersionPrefix)</Version>
+    <Description>FallGuys.org Database Models</Description>
   </PropertyGroup>
 
   <ItemGroup>
