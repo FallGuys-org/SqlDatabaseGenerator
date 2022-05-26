@@ -9,3 +9,6 @@ For now, it can output a SQLite database only.
 Just run the app. The default behaviour is to load data from the Fall Guys database repo and generate a SQlite database named `fallguys.db` in the same folder as the app.
 
 Run the exe with `--help` to read the docs and see all options.
+
+## NuGet Package
+The EF Core `DbContext` and models are published as [a NuGet package](https://github.com/FallGuys-org/SqlDatabaseGenerator/packages/1445739).
